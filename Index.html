@@ -3,141 +3,322 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#09070a">
 
 <title>Băiatul Meu ❤️</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@400;500&display=swap');
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
 }
 
+html,body{
+    width:100%;
+    min-height:100%;
+}
+
 body{
+    font-family:'DM Sans',sans-serif;
+    color:#fff;
     min-height:100vh;
-    font-family:Georgia,serif;
-    color:white;
     display:flex;
     justify-content:center;
     align-items:center;
     overflow:hidden;
 
     background:
-        radial-gradient(circle at 50% 20%, #492434 0%, #1b1016 38%, #08070a 100%);
+        radial-gradient(circle at 50% 0%,#5b2639 0%,#25131d 30%,#0c080b 70%,#050405 100%);
 }
 
-body:before{
+/* Lumină ambientală */
+
+body::before{
+    content:"";
+    position:fixed;
+    width:600px;
+    height:600px;
+    left:50%;
+    top:20%;
+    transform:translate(-50%,-50%);
+    background:rgba(184,76,111,.14);
+    filter:blur(120px);
+    border-radius:50%;
+    pointer-events:none;
+}
+
+body::after{
     content:"";
     position:fixed;
     inset:0;
-    background:
-        radial-gradient(circle at 20% 30%, rgba(255,180,200,.08), transparent 25%),
-        radial-gradient(circle at 80% 70%, rgba(255,180,200,.06), transparent 30%);
+    background:linear-gradient(
+        120deg,
+        transparent 30%,
+        rgba(255,255,255,.025) 50%,
+        transparent 70%
+    );
     pointer-events:none;
 }
 
-.container{
-    width:92%;
-    max-width:650px;
-    text-align:center;
-    position:relative;
-    z-index:2;
+/* Stele */
+
+.stars{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
 }
+
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:#fff;
+    border-radius:50%;
+    opacity:.4;
+    animation:twinkle 4s infinite alternate;
+}
+
+/* Container */
+
+.wrapper{
+    width:100%;
+    max-width:520px;
+    padding:22px;
+    position:relative;
+    z-index:5;
+}
+
+/* Card */
 
 .card{
-    padding:55px 30px;
-    border:1px solid rgba(255,255,255,.14);
-    border-radius:30px;
+    position:relative;
+    padding:38px 25px 30px;
+    border-radius:32px;
 
-    background:rgba(255,255,255,.055);
-    backdrop-filter:blur(18px);
-    -webkit-backdrop-filter:blur(18px);
+    background:rgba(255,255,255,.065);
+    border:1px solid rgba(255,255,255,.13);
+
+    backdrop-filter:blur(25px);
+    -webkit-backdrop-filter:blur(25px);
 
     box-shadow:
-        0 30px 80px rgba(0,0,0,.55),
-        inset 0 0 40px rgba(255,255,255,.025);
+        0 35px 100px rgba(0,0,0,.65),
+        inset 0 1px 0 rgba(255,255,255,.08);
 
-    animation:appear 2s ease;
+    animation:cardIn 1.2s ease;
 }
 
-.heart{
-    font-size:70px;
-    margin-bottom:20px;
-    animation:pulse 2.5s infinite;
-    filter:drop-shadow(0 0 20px rgba(255,100,140,.35));
+/* Buton inimă */
+
+.top-heart{
+    width:62px;
+    height:62px;
+    margin:0 auto 22px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.12);
+
+    font-size:29px;
+
+    box-shadow:
+        0 0 35px rgba(255,80,130,.18);
+
+    animation:heartbeat 2.5s infinite;
 }
+
+/* Titlu */
 
 h1{
-    font-size:clamp(42px,10vw,70px);
-    font-weight:normal;
-    letter-spacing:2px;
+    font-family:'Playfair Display',serif;
+    text-align:center;
+    font-size:clamp(44px,11vw,65px);
+    font-weight:400;
+    line-height:1.05;
+    letter-spacing:-1px;
 }
 
 .subtitle{
-    margin-top:14px;
-    color:#d9b7c3;
-    font-size:15px;
+    text-align:center;
+    margin-top:13px;
+
+    font-size:11px;
     letter-spacing:4px;
     text-transform:uppercase;
+
+    color:#d9aebc;
 }
 
-.line{
-    width:90px;
-    height:1px;
-    background:#d5a5b5;
-    margin:30px auto;
+/* Linie */
+
+.divider{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin:28px 0;
 }
+
+.divider span{
+    height:1px;
+    flex:1;
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(235,180,197,.5)
+    );
+}
+
+.divider span:last-child{
+    background:linear-gradient(
+        90deg,
+        rgba(235,180,197,.5),
+        transparent
+    );
+}
+
+.divider i{
+    color:#dcaabb;
+    font-style:normal;
+    font-size:12px;
+}
+
+/* Mesaj */
 
 .message{
-    color:#eee;
-    font-size:18px;
+    text-align:center;
+    color:#e9e1e4;
+    font-size:16px;
     line-height:1.8;
-    margin-bottom:32px;
 }
 
-.player{
-    margin-top:30px;
+.message strong{
+    display:block;
+    margin-top:5px;
+    color:#f0c3d0;
+    font-family:'Playfair Display',serif;
+    font-size:21px;
+    font-weight:400;
 }
+
+/* Player */
+
+.music-box{
+    margin-top:30px;
+    padding:20px;
+
+    border-radius:23px;
+
+    background:rgba(0,0,0,.23);
+    border:1px solid rgba(255,255,255,.09);
+}
+
+.music-info{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:18px;
+    text-align:left;
+}
+
+.album{
+    width:52px;
+    height:52px;
+    min-width:52px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:15px;
+
+    background:
+        linear-gradient(145deg,#8d4059,#321521);
+
+    font-size:24px;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.35);
+}
+
+.music-title{
+    font-size:15px;
+    font-weight:600;
+}
+
+.music-subtitle{
+    margin-top:4px;
+    font-size:12px;
+    color:#a9979e;
+}
+
+/* Audio */
 
 audio{
     width:100%;
-    height:52px;
-    border-radius:30px;
+    height:42px;
+    display:block;
+    border-radius:20px;
 }
 
-.song{
-    margin-top:18px;
-    color:#cbaeba;
-    font-size:14px;
-    letter-spacing:2px;
-}
+/* Semnătură */
 
 .signature{
-    margin-top:38px;
-    font-size:24px;
+    margin-top:29px;
+    text-align:center;
+
+    font-family:'Playfair Display',serif;
+    font-size:20px;
     font-style:italic;
-    color:#edc4d0;
+
+    color:#e7bdc9;
 }
+
+.signature::before{
+    content:"“";
+    margin-right:3px;
+    color:#c7889e;
+}
+
+.signature::after{
+    content:"”";
+    margin-left:3px;
+    color:#c7889e;
+}
+
+/* Footer */
 
 .footer{
-    margin-top:25px;
-    color:#85747b;
-    font-size:12px;
-    letter-spacing:1px;
+    text-align:center;
+    margin-top:22px;
+
+    font-size:9px;
+    letter-spacing:3px;
+
+    color:#76666d;
 }
 
-/* inimioare plutitoare */
+/* Inimioare plutitoare */
 
-.heart-float{
+.floating-heart{
     position:fixed;
     bottom:-30px;
-    font-size:18px;
-    opacity:.35;
-    animation:floatUp linear infinite;
     pointer-events:none;
+    opacity:0;
+
+    animation:floatHeart linear forwards;
 }
 
-@keyframes appear{
+/* Animații */
+
+@keyframes cardIn{
     from{
         opacity:0;
         transform:translateY(35px) scale(.97);
@@ -148,40 +329,62 @@ audio{
     }
 }
 
-@keyframes pulse{
-    0%,100%{
-        transform:scale(1);
-    }
-    50%{
-        transform:scale(1.1);
-    }
+@keyframes heartbeat{
+    0%,100%{transform:scale(1);}
+    10%{transform:scale(1.08);}
+    20%{transform:scale(1);}
+    30%{transform:scale(1.08);}
+    40%{transform:scale(1);}
 }
 
-@keyframes floatUp{
-    from{
-        transform:translateY(0) rotate(0deg);
+@keyframes twinkle{
+    from{opacity:.15;transform:scale(.7);}
+    to{opacity:.7;transform:scale(1.3);}
+}
+
+@keyframes floatHeart{
+    0%{
+        transform:translateY(0) scale(.7) rotate(0deg);
         opacity:0;
     }
     15%{
         opacity:.35;
     }
-    to{
-        transform:translateY(-110vh) rotate(360deg);
+    100%{
+        transform:translateY(-110vh) scale(1.15) rotate(20deg);
         opacity:0;
     }
 }
 
-@media(max-width:500px){
-    .card{
-        padding:42px 20px;
+/* Telefon */
+
+@media(max-width:480px){
+
+    .wrapper{
+        padding:15px;
     }
 
-    .heart{
-        font-size:58px;
+    .card{
+        padding:32px 19px 25px;
+        border-radius:28px;
+    }
+
+    .top-heart{
+        width:56px;
+        height:56px;
+        font-size:25px;
     }
 
     .message{
-        font-size:16px;
+        font-size:15px;
+    }
+
+    .music-box{
+        padding:16px;
+    }
+
+    h1{
+        font-size:48px;
     }
 }
 </style>
@@ -189,11 +392,26 @@ audio{
 
 <body>
 
-<div class="container">
+<!-- Fundal -->
+<div class="stars">
+    <span class="star" style="top:8%;left:14%;animation-delay:.2s"></span>
+    <span class="star" style="top:17%;left:82%;animation-delay:1s"></span>
+    <span class="star" style="top:31%;left:23%;animation-delay:1.7s"></span>
+    <span class="star" style="top:43%;left:91%;animation-delay:.8s"></span>
+    <span class="star" style="top:57%;left:7%;animation-delay:2s"></span>
+    <span class="star" style="top:72%;left:78%;animation-delay:.4s"></span>
+    <span class="star" style="top:87%;left:19%;animation-delay:1.2s"></span>
+    <span class="star" style="top:92%;left:67%;animation-delay:2.5s"></span>
+</div>
 
-    <div class="card">
 
-        <div class="heart">❤️</div>
+<div class="wrapper">
+
+    <main class="card">
+
+        <div class="top-heart">
+            ❤️
+        </div>
 
         <h1>Băiatul Meu</h1>
 
@@ -201,77 +419,125 @@ audio{
             Din sufletul unei mame
         </div>
 
-        <div class="line"></div>
+
+        <div class="divider">
+            <span></span>
+            <i>♡</i>
+            <span></span>
+        </div>
+
 
         <div class="message">
+
             Pentru copilul meu,<br>
-            cu toată iubirea unei mame. ❤️
+            cu toată iubirea pe care o poate
+            purta inima unei mame.
+
+            <strong>
+                La mulți ani, sufletul meu.
+            </strong>
+
         </div>
 
-        <div class="player">
 
-            <audio id="music" controls autoplay loop>
-                <source src="1.mp3" type="audio/mpeg">
-                Browserul tău nu poate reda acest fișier audio.
-            </audio>
+        <!-- PLAYER -->
 
-            <div class="song">
-                🎵 O melodie din suflet pentru tine
+        <div class="music-box">
+
+            <div class="music-info">
+
+                <div class="album">
+                    ❤️
+                </div>
+
+                <div>
+                    <div class="music-title">
+                        Băiatul Meu
+                    </div>
+
+                    <div class="music-subtitle">
+                        O melodie din suflet
+                    </div>
+                </div>
+
             </div>
 
+
+            <audio id="music" controls autoplay loop preload="auto">
+
+                <source src="1.mp3" type="audio/mpeg">
+
+                Browserul tău nu suportă redarea audio.
+
+            </audio>
+
         </div>
+
 
         <div class="signature">
-            „Mama te va iubi mereu.” ❤️
+            Mama te va iubi mereu
         </div>
+
 
         <div class="footer">
-            LA MULȚI ANI, SUFLETUL MEU
+            CU TOATĂ DRAGOSTEA
         </div>
 
-    </div>
+    </main>
 
 </div>
 
+
 <script>
 
-/* încearcă pornirea automată */
-window.addEventListener("load", function(){
+/* Muzică */
 
-    const music = document.getElementById("music");
+const music = document.getElementById("music");
 
-    music.volume = 0.7;
+music.volume = 0.7;
+
+window.addEventListener("load", () => {
 
     music.play().catch(() => {
-        // Browserul poate bloca autoplay.
-        // Melodia poate fi pornită din player.
+        /*
+        Unele browsere blochează autoplay
+        până când utilizatorul atinge pagina.
+        */
     });
 
 });
 
-/* inimioare plutitoare */
+
+/* Inimioare plutitoare */
 
 function createHeart(){
 
     const heart = document.createElement("div");
 
-    heart.className = "heart-float";
-    heart.innerHTML = Math.random() > 0.5 ? "❤️" : "♡";
+    heart.className = "floating-heart";
 
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (8 + Math.random() * 8) + "s";
-    heart.style.fontSize = (12 + Math.random() * 16) + "px";
+    heart.innerHTML =
+        Math.random() > .5 ? "♡" : "♥";
+
+    heart.style.left =
+        Math.random() * 100 + "vw";
+
+    heart.style.fontSize =
+        (12 + Math.random() * 15) + "px";
+
+    heart.style.animationDuration =
+        (7 + Math.random() * 7) + "s";
 
     document.body.appendChild(heart);
 
     setTimeout(() => {
         heart.remove();
-    },16000);
+    },15000);
 }
 
-setInterval(createHeart,1200);
+setInterval(createHeart,1400);
 
 </script>
 
 </body>
-  </html>
+</html>
